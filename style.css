@@ -1,0 +1,155 @@
+:root{
+  --bg1:#0f172a;          /* deep slate */
+  --bg2:#1e293b;          /* lighter slate */
+  --card:#0b1224aa;       /* glass card */
+  --accent:#22d3ee;       /* cyan */
+  --leaf:#30d158;         /* default leaf */
+  --chip:#0ea5e9;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;
+  color:#e5e7eb;
+  background:
+    radial-gradient(60vw 60vw at 10% 10%, #0b1224 0%, transparent 60%),
+    radial-gradient(70vw 70vw at 90% -10%, #0c1a3a 0%, transparent 70%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+}
+
+.topbar{
+  text-align:center;
+  padding:24px 16px 8px;
+}
+.topbar h1{margin:0;font-weight:800;letter-spacing:.3px}
+.tag{margin:.25rem 0 0;color:#94a3b8}
+
+.grid{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-areas:
+    "controls tree"
+    "metrics tree";
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  border-radius:18px;
+  padding:16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.controls{grid-area:controls}
+.tree-card{grid-area:tree; display:flex; flex-direction:column; align-items:center}
+.metrics{grid-area:metrics}
+
+h2{margin:.2rem 0 1rem; font-size:1.1rem; color:#cbd5e1}
+.muted{color:#94a3b8}
+.small{font-size:.85rem}
+
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.row input[type="text"]{
+  flex:1; min-width:220px;
+  background:#0b1224;
+  color:#e5e7eb;
+  border:1px solid #233150;
+  padding:10px 12px; border-radius:12px;
+  outline:none;
+}
+button{
+  background:linear-gradient(135deg,#06b6d4,#22d3ee);
+  color:#082f49; font-weight:700;
+  border:none; border-radius:12px; padding:10px 14px;
+  cursor:pointer;
+}
+button:hover{filter:brightness(1.05)}
+button:active{transform:translateY(1px)}
+
+.toggle-row{margin-top:6px}
+.hidden{display:none}
+
+.switch{position:relative; width:48px; height:26px; display:inline-block}
+.switch input{display:none}
+.slider{
+  position:absolute; inset:0; background:#334155; border-radius:999px;
+  transition:.2s;
+}
+.slider:before{
+  content:""; position:absolute; height:20px; width:20px; left:4px; top:3px;
+  background:white; border-radius:50%; transition:.2s;
+}
+.switch input:checked + .slider{background:#22d3ee}
+.switch input:checked + .slider:before{transform:translateX(22px)}
+
+#treeWrap{width:100%; display:flex; justify-content:center}
+#tree{
+  width:100%; max-width:420px; height:auto;
+  --leaf: var(--leaf);
+}
+#tree .canopy circle{
+  fill: var(--leaf);
+  filter: drop-shadow(0 8px 6px rgba(0,0,0,.25));
+  transition: fill .35s ease, opacity .35s ease;
+}
+
+/* oxygen bubble animation (strength scales from JS) */
+.bubble{
+  fill: #a7f3d0;
+  opacity:.0;
+  animation: rise 4s linear infinite;
+}
+@keyframes rise{
+  0% {transform:translateY(0) scale(.6); opacity:.0}
+  10%{opacity:.35}
+  80%{opacity:.2}
+  100%{transform:translateY(-120px) scale(1.1); opacity:0}
+}
+
+/* KPI cards */
+.kpis{
+  display:grid; gap:12px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.kpi{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  padding:12px; border-radius:14px;
+}
+.label{color:#94a3b8; font-size:.85rem}
+.value{display:block; font-size:1.4rem; font-weight:800; margin-top:6px}
+
+.chip{
+  display:inline-block; margin-left:8px;
+  padding:2px 8px; border-radius:999px; background:#0b1224; border:1px solid #1f2b47;
+  color:#cbd5e1; font-size:.8rem
+}
+
+/* AQI gauge (simple bar) */
+.gauge{
+  margin-top:14px;
+  height:14px; background:#0b1224; border:1px solid #1f2b47; border-radius:999px; position:relative;
+}
+#gaugeFill{
+  position:absolute; inset:0 100% 0 0;
+  background: linear-gradient(90deg, #22c55e, #eab308, #ef4444, #7e22ce);
+  border-radius:999px;
+  transition: inset .35s ease;
+}
+.gauge-scale{
+  display:flex; justify-content:space-between; font-size:.75rem; color:#64748b; margin-top:6px
+}
+
+.foot{
+  text-align:center; color:#64748b; padding:22px 12px; font-size:.9rem
+}
+
+/* responsive */
+@media (max-width: 860px){
+  .grid{grid-template-columns:1fr; grid-template-areas:"tree" "controls" "metrics"}
+}

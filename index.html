@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartTree — Pollution Observing Tree</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🌿 SmartTree</h1>
+    <p class="tag">Nature-friendly live air quality & a responsive digital tree</p>
+  </header>
+
+  <main class="grid">
+    <!-- Controls -->
+    <section class="card controls">
+      <h2>Controls</h2>
+      <div class="row">
+        <input id="cityInput" type="text" placeholder="Search city (e.g., Hyderabad)" />
+        <button id="searchBtn">Search</button>
+        <button id="locateBtn">Use My Location</button>
+      </div>
+
+      <div class="row toggle-row">
+        <label class="switch">
+          <input id="manualToggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+        <span>Manual mode</span>
+      </div>
+
+      <div id="manualBox" class="row hidden">
+        <label for="aqiSlider">AQI:</label>
+        <input id="aqiSlider" type="range" min="0" max="500" step="1" value="80" />
+        <span id="aqiSliderVal">80</span>
+        <button id="applyAqiBtn">Apply</button>
+      </div>
+
+      <p id="status" class="muted">Tip: enable “Use My Location” for live data.</p>
+    </section>
+
+    <!-- Tree -->
+    <section class="card tree-card">
+      <h2>Smart Tree</h2>
+      <div id="treeWrap">
+        <svg id="tree" viewBox="0 0 200 260" aria-label="SmartTree">
+          <ellipse cx="100" cy="240" rx="55" ry="10" fill="rgba(0,0,0,.15)"></ellipse>
+          <path d="M95 220 L105 220 L110 155 Q100 145 90 155 Z" fill="#6b4f3b"></path>
+          <path d="M100 170 C85 160, 70 150, 60 135" stroke="#6b4f3b" stroke-width="5" fill="none"/>
+          <path d="M100 170 C115 160, 130 150, 140 135" stroke="#6b4f3b" stroke-width="5" fill="none"/>
+
+          <g class="canopy">
+            <circle cx="70" cy="120" r="35"></circle>
+            <circle cx="110" cy="110" r="40"></circle>
+            <circle cx="140" cy="130" r="32"></circle>
+            <circle cx="90"  cy="140" r="38"></circle>
+          </g>
+
+          <g id="bubbles"></g>
+        </svg>
+      </div>
+      <p class="muted small">Greener = cleaner air. Reddish = poor air quality.</p>
+    </section>
+
+    <!-- Metrics -->
+    <section class="card metrics">
+      <h2>Air Quality</h2>
+      <div class="kpis">
+        <div class="kpi">
+          <span class="label">AQI</span>
+          <span id="aqiVal" class="value">–</span>
+          <span id="aqiCat" class="chip">–</span>
+        </div>
+        <div class="kpi"><span class="label">PM2.5 (µg/m³)</span><span id="pm25" class="value">–</span></div>
+        <div class="kpi"><span class="label">PM10 (µg/m³)</span><span id="pm10" class="value">–</span></div>
+        <div class="kpi"><span class="label">O₃ (µg/m³)</span><span id="o3" class="value">–</span></div>
+        <div class="kpi"><span class="label">NO₂ (µg/m³)</span><span id="no2" class="value">–</span></div>
+        <div class="kpi"><span class="label">SO₂ (µg/m³)</span><span id="so2" class="value">–</span></div>
+      </div>
+
+      <div class="gauge">
+        <div id="gaugeFill"></div>
+        <div class="gauge-scale">
+          <span>0</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span>
+        </div>
+      </div>
+
+      <!-- Friendly, human message (with emoji) -->
+      <div id="advice" class="advice">—</div>
+    </section>
+  </main>
+
+  <!-- No “built in 24 hours” footer anymore -->
+  <script src="script.js"></script>
+</body>
+</html>
